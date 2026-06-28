@@ -77,6 +77,14 @@ wss.on('connection', (ws) => {
         try {
             const data = JSON.parse(message);
             
+            // 🔑 የሬንደርን ሰርቨር ለማንቃት ከብሮውዘር የሚመጣውን PING እዚህ ጋር እንይዛለን
+            if (data.type === 'PING') {
+                // ዝም ብሎ ሰርቨሩን ነቅቶ እንዲቆይ ያደርገዋል፣ ምንም ሌላ ስራ አይሰራም
+                return; 
+            }
+            
+        
+            
             // 🔑 አዲስ ተጫዋች ካርቴላ ሲመርጥ ወይም ሲሰርዝ የካርቴላዎቹን ዝርዝር በሰርቨር ላይ ማስቀመጥ
             if (data.type === 'SAVE_MY_CARDS') {
                 playerSelections[data.userId] = data.cardIds; // አሬይ ማስቀመጥ [12, 45, 600]
